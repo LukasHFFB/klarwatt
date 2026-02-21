@@ -58,7 +58,7 @@ export const Homepage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredCategories.map(cat => (
                         <Link
-                            to={`${cat.slug}`}
+                            to={`/${cat.slug}`}
                             key={cat.slug}
                             className="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg hover:border-solar-500 transition-all cursor-pointer flex flex-col justify-between card-transition"
                         >

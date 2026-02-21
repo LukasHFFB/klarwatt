@@ -22,13 +22,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="" className="flex-shrink-0 flex items-center">
+          <Link to="/" className="flex-shrink-0 flex items-center">
             <Sun className="h-8 w-8 text-solar-500 mr-2" />
             <span className="font-bold text-2xl tracking-tight text-slate-900">Klar<span className="text-solar-500">watt</span></span>
           </Link>
           <nav className="hidden md:flex space-x-8">
-            <Link to="" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Alle Rechner</Link>
-            <a href="#seo-text" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Solar-Wissen</a>
+            <Link to="/" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Alle Rechner</Link>
+            <a href="/#seo-text" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Solar-Wissen</a>
             <a href="#" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Über uns</a>
           </nav>
           <div className="md:hidden flex items-center">
@@ -54,7 +54,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
         <div>
           <h4 className="text-white font-semibold mb-4">Beliebte Rechner</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link to="balkonkraftwerk/ertrag" className="hover:text-solar-500 transition-colors">Balkonkraftwerk Ertrag</Link></li>
+            <li><Link to="/balkonkraftwerk/ertrag" className="hover:text-solar-500 transition-colors">Balkonkraftwerk Ertrag</Link></li>
             <li><a href="#" className="hover:text-solar-500 transition-colors">PV-Anlagen Rendite</a></li>
             <li><a href="#" className="hover:text-solar-500 transition-colors">Speicher Dimensionierung</a></li>
           </ul>
@@ -62,8 +62,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
         <div>
           <h4 className="text-white font-semibold mb-4">Rechtliches</h4>
           <ul className="space-y-2 text-sm">
-            <li><Link to="impressum" className="hover:text-white transition-colors">Impressum</Link></li>
-            <li><Link to="datenschutz" className="hover:text-white transition-colors">Datenschutz</Link></li>
+            <li><Link to="/impressum" className="hover:text-white transition-colors">Impressum</Link></li>
+            <li><Link to="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link></li>
             <li><a href="#" className="hover:text-white transition-colors">Kontakt</a></li>
           </ul>
         </div>
@@ -77,7 +77,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 export default function App() {
   return (
-    <Router basename="/klarwatt">
+    <Router>
       <ScrollToTop />
       <Layout>
         <Routes>
