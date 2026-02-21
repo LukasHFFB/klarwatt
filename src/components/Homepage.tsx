@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CATEGORIES } from '../data/categories';
-import * as Icons from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 
 export const Homepage: React.FC = () => {
     const [search, setSearch] = useState('');
@@ -15,97 +15,111 @@ export const Homepage: React.FC = () => {
         );
     }, [search]);
 
-    const renderIcon = (name: string) => {
-        const IconComponent = (Icons as any)[name] || Icons.HelpCircle;
-        return <IconComponent size={32} style={{ color: 'var(--color-solar-500)', marginBottom: '1rem' }} />;
+    const renderIcon = (name: string, className: string = "h-6 w-6") => {
+        const IconComponent = (LucideIcons as any)[name] || LucideIcons.HelpCircle;
+        return <IconComponent className={className} />;
     };
 
     return (
-        <div>
-            {/* Hero Section */}
-            <section style={{ background: 'var(--color-slate-900)', color: 'white', padding: '6rem 1rem', textAlign: 'center' }}>
-                <div className="container" style={{ maxWidth: '800px' }}>
-                    <h1 style={{ color: 'white', fontSize: '3.5rem', fontWeight: 900, marginBottom: '1.5rem', letterSpacing: '-0.025em' }}>
-                        Der ehrliche <span style={{ color: 'var(--color-solar-500)' }}>Solar-Rechner</span>
+        <div className="bg-slate-50 min-h-screen">
+            {/* Hero Section with Suche */}
+            <section className="bg-white border-b border-slate-200 pt-16 pb-20">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+                    <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                        Berechne dein <span className="text-transparent bg-clip-text bg-gradient-to-r from-solar-500 to-orange-400">Solar-Potenzial</span>
                     </h1>
-                    <p style={{ fontSize: '1.25rem', color: 'var(--color-slate-200)', marginBottom: '3rem', lineHeight: 1.6 }}>
-                        Kein Vertrieb. Kein Bullshit. Nur präzise, transparente Berechnungen für
-                        Ihr Photovoltaik-Projekt. Berechnen Sie Ertrag, Wirtschaftlichkeit und Autarkie.
+                    <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+                        Kostenlos, werbefrei und unabhängig. Finde den passenden Rechner für dein Projekt – vom Balkonkraftwerk bis zur Wärmepumpe.
                     </p>
 
-                    <div style={{ position: 'relative', maxWidth: '600px', margin: '0 auto' }}>
-                        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '1rem', color: 'var(--color-slate-400)' }}>
-                            <Icons.Search size={24} />
+                    {/* Suchfeld */}
+                    <div className="max-w-xl mx-auto relative group">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <LucideIcons.Search className="h-5 w-5 text-slate-400 group-focus-within:text-solar-500 transition-colors" />
                         </div>
                         <input
                             type="text"
-                            placeholder="Welches Projekt planen Sie?"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            style={{
-                                width: '100%',
-                                padding: '1.25rem 1.25rem 1.25rem 3.5rem',
-                                fontSize: '1.125rem',
-                                borderRadius: '9999px',
-                                border: 'none',
-                                outline: 'none',
-                                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)'
-                            }}
+                            className="block w-full pl-12 pr-4 py-4 border border-slate-300 rounded-xl leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-solar-500 focus:border-solar-500 sm:text-lg shadow-sm transition-all"
+                            placeholder="Welchen Rechner suchst du? (z.B. Ertrag Carport)"
                         />
                     </div>
                 </div>
             </section>
 
-            {/* How it works strip */}
-            <section style={{ background: 'var(--color-solar-50)', padding: '3rem 1rem', borderBottom: '1px solid var(--color-slate-200)' }}>
-                <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', textAlign: 'center' }}>
-                    <div>
-                        <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-solar-500)', marginBottom: '0.5rem' }}>1</div>
-                        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Postleitzahl eingeben</h3>
-                        <p style={{ color: 'var(--color-slate-600)' }}>Wir rufen exakte Sonnendaten des EU PVGIS für Ihre Region ab.</p>
-                    </div>
-                    <div>
-                        <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-solar-500)', marginBottom: '0.5rem' }}>2</div>
-                        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Rechner wählen</h3>
-                        <p style={{ color: 'var(--color-slate-600)' }}>Von Balkonkraftwerk bis Agri-PV haben wir das passende Tool.</p>
-                    </div>
-                    <div>
-                        <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-solar-500)', marginBottom: '0.5rem' }}>3</div>
-                        <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Sofort-Ergebnis</h3>
-                        <p style={{ color: 'var(--color-slate-600)' }}>Ehrliche Zahlen zur Amortisation ohne versteckte Annahmen.</p>
-                    </div>
+            {/* Kategorien Grid */}
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="mb-8 flex justify-between items-end">
+                    <h2 className="text-2xl font-bold text-slate-900">Rechner-Kategorien</h2>
+                    <span className="text-sm font-medium text-slate-500 bg-slate-200 px-3 py-1 rounded-full">Insgesamt 55 Rechner</span>
                 </div>
-            </section>
 
-            {/* Categories Grid */}
-            <section className="container" style={{ padding: '6rem 1rem' }}>
-                <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '3rem', textAlign: 'center' }}>Unsere Kalkulatoren</h2>
-
-                {filteredCategories.length === 0 ? (
-                    <div style={{ textAlign: 'center', color: 'var(--color-slate-600)', padding: '4rem 0' }}>
-                        Keine Kategorien für "{search}" gefunden.
-                    </div>
-                ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-                        {filteredCategories.map(cat => (
-                            <Link
-                                to={`/${cat.slug}`}
-                                key={cat.slug}
-                                className="card"
-                                style={{ display: 'block', textDecoration: 'none', transition: 'all 0.2s', color: 'inherit' }}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                            >
-                                {renderIcon(cat.iconName)}
-                                <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{cat.title}</h3>
-                                <p style={{ color: 'var(--color-slate-600)', marginBottom: '1.5rem', minHeight: '3rem' }}>{cat.description}</p>
-                                <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-solar-600)' }}>
-                                    {cat.calculatorCount} Rechner &rarr;
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {filteredCategories.map(cat => (
+                        <Link
+                            to={`/${cat.slug}`}
+                            key={cat.slug}
+                            className="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg hover:border-solar-500 transition-all cursor-pointer flex flex-col justify-between card-transition"
+                        >
+                            <div>
+                                <div className="bg-solar-50 text-solar-600 rounded-xl w-12 h-12 flex items-center justify-center mb-4 group-hover:bg-solar-500 group-hover:text-white transition-colors">
+                                    {renderIcon(cat.iconName)}
                                 </div>
-                            </Link>
-                        ))}
+                                <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-solar-600 transition-colors">{cat.title}</h3>
+                                <p className="text-sm text-slate-500">{cat.description}</p>
+                            </div>
+                            <div className="mt-4 flex items-center text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg w-fit">
+                                {cat.calculatorCount} Rechner
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+
+                {filteredCategories.length === 0 && (
+                    <div className="text-center py-12">
+                        <LucideIcons.SearchX className="h-12 w-12 text-slate-300 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-slate-900">Keine Kategorie gefunden</h3>
+                        <p className="text-slate-500">Bitte probiere einen anderen Suchbegriff.</p>
                     </div>
                 )}
+            </main>
+
+            {/* SEO & Text Section */}
+            <section id="seo-text" className="bg-white border-t border-slate-200 py-16">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6">
+                    <div className="prose prose-slate prose-lg max-w-none">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-6">Warum Klarwatt? Dein Kompass im Solar-Dschungel</h2>
+                        <p className="text-slate-600 mb-4">
+                            Die Energiewende findet nicht nur auf riesigen Freiflächen statt, sondern direkt bei uns zu Hause. Egal ob du ein kleines <strong>Balkonkraftwerk</strong> am Geländer befestigst, das Dach deines <strong>Camper-Vans</strong> ausstattest oder planst, dein gesamtes <strong>Hausdach</strong> mit Photovoltaik einzudecken – die erste Frage ist immer: <em>"Lohnt sich das für mich?"</em>
+                        </p>
+                        <p className="text-slate-600 mb-8">
+                            Genau dafür wurde Klarwatt entwickelt. Wir bieten eine werbefreie, blitzschnelle und exakte Sammlung von Solar-Rechnern für jede erdenkliche Nische in Deutschland.
+                        </p>
+
+                        <h3 className="text-2xl font-semibold text-slate-900 mb-4 mt-8">Wie funktionieren unsere Solar-Rechner?</h3>
+                        <div className="bg-slate-50 rounded-xl p-6 border border-slate-100 mb-8">
+                            <ul className="space-y-4">
+                                <li className="flex items-start">
+                                    <LucideIcons.CheckCircle2 className="h-6 w-6 text-solar-500 mr-3 flex-shrink-0 mt-0.5" />
+                                    <span className="text-slate-600"><strong>Standort-Daten:</strong> Wir nutzen globale Einstrahlungsdaten (z.B. PVGIS), um den spezifischen Ertrag in deiner Postleitzahl zu ermitteln.</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <LucideIcons.CheckCircle2 className="h-6 w-6 text-solar-500 mr-3 flex-shrink-0 mt-0.5" />
+                                    <span className="text-slate-600"><strong>Wirtschaftlichkeit:</strong> Dynamische Strompreise und aktuelle Einspeisevergütungen nach dem EEG fließen direkt in die Amortisations-Modelle ein.</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <LucideIcons.CheckCircle2 className="h-6 w-6 text-solar-500 mr-3 flex-shrink-0 mt-0.5" />
+                                    <span className="text-slate-600"><strong>Komponenten-Logik:</strong> Von der Kabelverlust-Berechnung bis zum Wirkungsgrad des Wechselrichters – unsere "Universal Tools" greifen tief in die Physik ein.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="p-4 border-2 border-dashed border-slate-300 bg-slate-50 rounded-lg text-center text-slate-500 text-sm">
+                            [Hier ist viel Platz für strukturierte H2/H3 Tags, FAQ-Akkordeons und tiefergehende Erklärungen (1.500 Wörter), die von Google indexiert werden, aber das Design der Haupt-Tools oben nicht stören.]
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     );
