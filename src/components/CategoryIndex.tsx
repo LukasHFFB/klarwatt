@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { CATEGORIES } from '../data/categories';
 import { REGISTRY } from '../registry';
 import * as Icons from 'lucide-react';
+import { SeoSection } from './calculator/SeoSection';
 
 export const CategoryIndex: React.FC = () => {
     const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -10,62 +11,82 @@ export const CategoryIndex: React.FC = () => {
 
     if (!category) {
         return (
-            <div className="container" style={{ padding: '6rem 1rem', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Kategorie nicht gefunden</h1>
-                <Link to="/" className="btn btn-primary">Zurück zur Startseite</Link>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+                <h1 className="text-3xl font-bold text-slate-900 mb-6">Kategorie nicht gefunden</h1>
+                <Link to="/" className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-solar-600 hover:bg-solar-700 transition-colors">
+                    Zurück zur Startseite
+                </Link>
             </div>
         );
     }
 
     const renderIcon = () => {
         const IconComponent = (Icons as any)[category.iconName] || Icons.HelpCircle;
-        return <IconComponent size={48} style={{ color: 'var(--color-solar-500)', marginBottom: '1.5rem' }} />;
+        return <IconComponent className="w-12 h-12 text-solar-500 mb-6" />;
     };
 
     // Filter registry for calculators in this category
     const categoryCalculators = REGISTRY.filter(entry => entry.config.category === categorySlug);
 
     return (
-        <div>
-            <div style={{ background: 'var(--color-slate-900)', color: 'white', padding: '4rem 1rem' }}>
-                <div className="container">
+        <div className="bg-slate-50 min-h-screen pb-24">
+            {/* Hero Header */}
+            <div className="bg-slate-900 py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {renderIcon()}
-                    <h1 style={{ fontSize: '3rem', fontWeight: 900, marginBottom: '1rem' }}>{category.title}</h1>
-                    <p style={{ fontSize: '1.25rem', color: 'var(--color-slate-200)', maxWidth: '600px' }}>
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
+                        {category.title}
+                    </h1>
+                    <p className="text-xl text-slate-300 max-w-2xl leading-relaxed">
                         {category.description}
                     </p>
                 </div>
             </div>
 
-            <div className="container" style={{ padding: '4rem 1rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            {/* Calculator Grid */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 md:-mt-12 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
                     {/* Working Calculators from Registry */}
                     {categoryCalculators.map(({ config }) => (
                         <Link
                             key={`${config.category}-${config.slug}`}
                             to={`/${config.category}/${config.slug}`}
-                            className="card"
-                            style={{ textDecoration: 'none', color: 'inherit', border: '2px solid var(--color-solar-500)' }}
+                            className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border-2 border-solar-500 hover:border-solar-600 hover:shadow-md transition-all flex flex-col h-full group"
                         >
-                            <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{config.title}</h3>
-                            <p style={{ color: 'var(--color-slate-600)', marginBottom: '1.5rem' }}>{config.description}</p>
-                            <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-solar-600)' }}>Rechner starten &rarr;</span>
+                            <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-solar-600 transition-colors">{config.title}</h3>
+                            <p className="text-slate-600 mb-6 flex-grow leading-relaxed">{config.description}</p>
+                            <span className="text-sm font-bold text-solar-600 flex items-center">
+                                Rechner starten
+                                <Icons.ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                            </span>
                         </Link>
                     ))}
 
                     {/* Mocked "Demnächst" cards for remaining count */}
                     {Array.from({ length: Math.max(0, category.calculatorCount - categoryCalculators.length) }).map((_, i) => (
-                        <div key={i} className="card" style={{ opacity: 0.7, position: 'relative', overflow: 'hidden' }}>
-                            <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--color-slate-200)', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 600 }}>
+                        <div key={i} className="bg-slate-100/80 rounded-2xl p-6 md:p-8 border border-slate-200/60 relative flex flex-col h-full">
+                            <div className="absolute top-4 right-4 bg-slate-200/80 text-slate-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                                 Demnächst
                             </div>
-                            <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--color-slate-400)' }}>Weiterer Rechner</h3>
-                            <p style={{ color: 'var(--color-slate-400)' }}>Dieses Tool befindet sich aktuell in der Entwicklung.</p>
+                            <h3 className="text-xl font-bold text-slate-400 mb-3 pr-24">Weitere Rechner</h3>
+                            <p className="text-slate-400 mb-6 flex-grow leading-relaxed">Dieses Tool befindet sich aktuell noch in der Entwicklung und wird in Kürze veröffentlicht.</p>
+                            <span className="text-sm font-semibold text-slate-400 flex items-center">
+                                Bald verfügbar
+                            </span>
                         </div>
                     ))}
                 </div>
             </div>
+
+            {/* SEO Article Section (Injected if available) */}
+            {category.seoContent && (
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+                    <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200">
+                        <SeoSection content={category.seoContent} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
