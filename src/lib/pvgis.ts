@@ -22,11 +22,8 @@ export const fetchIrradiance = async (
     const coords = await resolvePlz(plz);
     if (!coords) return null;
 
-    // 3. Call PVGIS API
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const pvgisBase = isLocalhost
-        ? '/api/pvgis/v5_2/PVcalc'
-        : 'https://re.jrc.ec.europa.eu/api/v5_2/PVcalc';
+    // 3. Call PVGIS API via relative path (proxied by Vite in dev, Vercel in prod)
+    const pvgisBase = '/api/pvgis/v5_2/PVcalc';
 
     try {
         const url = new URL(pvgisBase, window.location.origin);

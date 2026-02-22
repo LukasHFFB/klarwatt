@@ -1,6 +1,10 @@
 {
     "rewrites": [
         {
+            "source": "/api/pvgis/:match*",
+            "destination": "https://re.jrc.ec.europa.eu/api/:match*"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }
