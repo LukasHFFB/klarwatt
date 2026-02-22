@@ -50,9 +50,8 @@ export const Homepage: React.FC = () => {
 
             {/* Kategorien Grid */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="mb-8 flex justify-between items-end">
+                <div className="mb-8">
                     <h2 className="text-2xl font-bold text-slate-900">Rechner-Kategorien</h2>
-                    <span className="text-sm font-medium text-slate-500 bg-slate-200 px-3 py-1 rounded-full">Insgesamt 55 Rechner</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -69,11 +68,16 @@ export const Homepage: React.FC = () => {
                                 <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-solar-600 transition-colors">{cat.title}</h3>
                                 <p className="text-sm text-slate-500">{cat.description}</p>
                             </div>
-                            <div className="mt-4 flex items-center text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg w-fit">
-                                {cat.calculatorCount} Rechner
-                            </div>
                         </Link>
                     ))}
+
+                    <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                        <div className="bg-slate-200 text-slate-400 rounded-xl w-12 h-12 flex items-center justify-center mb-3">
+                            <LucideIcons.Plus className="h-6 w-6" />
+                        </div>
+                        <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wide">Weitere Folgen</h3>
+                        <p className="text-xs text-slate-400 mt-1 max-w-[150px]">Wir entwickeln ständig neue Tools.</p>
+                    </div>
                 </div>
 
                 {filteredCategories.length === 0 && (

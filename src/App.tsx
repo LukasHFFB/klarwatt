@@ -5,7 +5,8 @@ import { CategoryIndex } from './components/CategoryIndex';
 import { LegalPages } from './components/LegalPages';
 import { CalculatorShell } from './components/calculator/CalculatorShell';
 import { REGISTRY } from './registry';
-import { Sun, Menu } from 'lucide-react';
+import { CATEGORIES } from './data/categories';
+import { Sun, Menu, ChevronDown } from 'lucide-react';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -29,8 +30,23 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Sun className="h-8 w-8 text-solar-500 mr-2" />
               <span className="font-bold text-2xl tracking-tight text-slate-900">Klar<span className="text-solar-500">watt</span></span>
             </Link>
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden md:flex space-x-8 items-center">
               <Link to="/" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Alle Rechner</Link>
+              <div className="relative group/nav z-50">
+                <button className="flex items-center text-slate-500 hover:text-solar-600 font-medium transition-colors py-2">
+                  Kategorien
+                  <ChevronDown className="w-4 h-4 ml-1 group-hover/nav:rotate-180 transition-transform" />
+                </button>
+                <div className="absolute left-0 top-full mt-2 w-64 bg-white border border-slate-200 shadow-xl rounded-xl opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-200 grid grid-cols-1 overflow-hidden">
+                  <div className="max-h-[60vh] overflow-y-auto w-full py-2">
+                    {CATEGORIES.map(cat => (
+                      <Link key={cat.slug} to={`/${cat.slug}`} className="block px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 hover:text-solar-600 transition-colors">
+                        {cat.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
               <a href="/klarwatt/#seo-text" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Solar-Wissen</a>
               <a href="#" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Über uns</a>
             </nav>
@@ -44,10 +60,22 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-4 shadow-lg absolute w-full max-w-7xl">
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium">Alle Rechner</Link>
-            <a href="/klarwatt/#seo-text" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium">Solar-Wissen</a>
-            <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium">Über uns</a>
+          <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 shadow-lg absolute w-full max-w-7xl max-h-[80vh] overflow-y-auto">
+            <div className="space-y-4 mb-6 border-b border-slate-100 pb-4">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Alle Rechner</Link>
+              <a href="/klarwatt/#seo-text" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Solar-Wissen</a>
+              <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Über uns</a>
+            </div>
+            <div>
+              <div className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Kategorien</div>
+              <div className="space-y-3">
+                {CATEGORIES.map(cat => (
+                  <Link key={cat.slug} to={`/${cat.slug}`} onClick={() => setIsMobileMenuOpen(false)} className="block pl-2 text-slate-600 hover:text-solar-600 font-medium">
+                    {cat.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </header>
@@ -56,34 +84,64 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         {children}
       </main>
 
-      <footer className="bg-slate-900 text-slate-400 py-12 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div className="flex items-center mb-4">
-              <Sun className="h-6 w-6 text-solar-500 mr-2" />
-              <span className="font-bold text-xl text-white">Klar<span className="text-solar-500">watt</span></span>
+      <footer className="bg-slate-900 text-slate-400 py-16 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="md:col-span-1">
+            <div className="flex items-center mb-6">
+              <Sun className="h-8 w-8 text-solar-500 mr-2" />
+              <span className="font-bold text-2xl text-white tracking-tight">Klar<span className="text-solar-500">watt</span></span>
             </div>
-            <p className="text-sm">Unabhängige Solar-Rechner für Deutschland. Berechne Ertrag, Rendite und Autarkie für dein Projekt.</p>
+            <p className="text-sm leading-relaxed mb-6 bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
+              Unabhängige Solar-Rechner für Deutschland. Berechne Ertrag, Rendite und Autarkie für dein Projekt komplett kostenlos – ohne Werbung oder versteckte Kosten.
+            </p>
           </div>
+
           <div>
-            <h4 className="text-white font-semibold mb-4">Beliebte Rechner</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/balkonkraftwerk/ertrag" className="hover:text-solar-500 transition-colors">Balkonkraftwerk Ertrag</Link></li>
-              <li><a href="#" className="hover:text-solar-500 transition-colors">PV-Anlagen Rendite</a></li>
-              <li><a href="#" className="hover:text-solar-500 transition-colors">Speicher Dimensionierung</a></li>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Kategorien</h4>
+            <ul className="space-y-3 text-sm">
+              {CATEGORIES.slice(0, 6).map(cat => (
+                <li key={cat.slug}>
+                  <Link to={`/${cat.slug}`} className="hover:text-solar-500 transition-colors flex items-center">
+                    {cat.title}
+                  </Link>
+                </li>
+              ))}
+              <li><Link to="/" className="text-solar-500 hover:text-solar-400 transition-colors font-medium">Alle Kategorien ansehen &rarr;</Link></li>
             </ul>
           </div>
+
           <div>
-            <h4 className="text-white font-semibold mb-4">Rechtliches</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/impressum" className="hover:text-white transition-colors">Impressum</Link></li>
-              <li><Link to="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors">Kontakt</a></li>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Beliebte Rechner</h4>
+            <ul className="space-y-3 text-sm">
+              {/* Select some featured / functional calculators from the registry to avoid dead links */}
+              {REGISTRY.filter(r => ['ertrag', 'amortisation'].includes(r.config.slug)).slice(0, 5).map(({ config }) => (
+                <li key={`${config.category}-${config.slug}`}>
+                  <Link to={`/${config.category}/${config.slug}`} className="hover:text-solar-500 transition-colors">
+                    {config.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Klarwatt</h4>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/" className="hover:text-white transition-colors">Startseite</Link></li>
+              <li><a href="/klarwatt/#seo-text" className="hover:text-white transition-colors">Solar-Wissen</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Über uns</a></li>
+              <li className="pt-4 mt-4 border-t border-slate-800">
+                <Link to="/impressum" className="hover:text-white transition-colors block">Impressum</Link>
+              </li>
+              <li>
+                <Link to="/datenschutz" className="hover:text-white transition-colors block">Datenschutz</Link>
+              </li>
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center">
-          &copy; 2026 Klarwatt.de. Alle Rechte vorbehalten.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-slate-800 text-sm text-center flex flex-col md:flex-row justify-between items-center text-slate-500">
+          <p>&copy; 2026 Klarwatt.de. Alle Rechte vorbehalten.</p>
+          <p className="mt-2 md:mt-0 flex items-center">Made with <span className="text-red-500 mx-1">♥</span> in Germany</p>
         </div>
       </footer>
     </div>

@@ -63,19 +63,16 @@ export const CategoryIndex: React.FC = () => {
                         </Link>
                     ))}
 
-                    {/* Mocked "Demnächst" cards for remaining count */}
-                    {Array.from({ length: Math.max(0, category.calculatorCount - categoryCalculators.length) }).map((_, i) => (
-                        <div key={i} className="bg-slate-100/80 rounded-2xl p-6 md:p-8 border border-slate-200/60 relative flex flex-col h-full">
-                            <div className="absolute top-4 right-4 bg-slate-200/80 text-slate-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                                Demnächst
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-400 mb-3 pr-24">Weitere Rechner</h3>
-                            <p className="text-slate-400 mb-6 flex-grow leading-relaxed">Dieses Tool befindet sich aktuell noch in der Entwicklung und wird in Kürze veröffentlicht.</p>
-                            <span className="text-sm font-semibold text-slate-400 flex items-center">
-                                Bald verfügbar
-                            </span>
+                    {/* Generic "Demnächst" Card */}
+                    <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 md:p-8 relative flex flex-col h-full items-center justify-center text-center">
+                        <div className="bg-slate-200 text-slate-400 rounded-xl w-12 h-12 flex items-center justify-center mb-4">
+                            <Icons.Plus className="h-6 w-6" />
                         </div>
-                    ))}
+                        <h3 className="text-xl font-bold text-slate-500 mb-2">Weitere Rechner folgen</h3>
+                        <p className="text-slate-400 leading-relaxed max-w-xs mx-auto">
+                            Wir entwickeln kontinuierlich neue Tools für diese Kategorie. Schau bald wieder vorbei!
+                        </p>
+                    </div>
                 </div>
             </div>
 
