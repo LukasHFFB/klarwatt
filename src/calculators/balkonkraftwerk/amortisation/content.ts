@@ -1,3 +1,5 @@
+import type { SeoContent } from '../../../types/content';
+
 export const BalkonkraftwerkAmortisationContent: SeoContent = {
     metaTitle: 'Balkonkraftwerk Amortisationsrechner 2026 | Klarwatt',
     metaDescription:
