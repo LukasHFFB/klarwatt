@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { Homepage } from './components/Homepage';
 import { CategoryIndex } from './components/CategoryIndex';
 import { LegalPages } from './components/LegalPages';
+import { AboutPage } from './components/AboutPage';
 import { CalculatorShell } from './components/calculator/CalculatorShell';
 import { REGISTRY } from './registry';
 import { CATEGORIES } from './data/categories';
@@ -47,8 +48,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   </div>
                 </div>
               </div>
-              <a href="/klarwatt/#seo-text" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Solar-Wissen</a>
-              <a href="#" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Über uns</a>
+              <Link to="/ueber-uns" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Über uns</Link>
             </nav>
             <div className="md:hidden flex items-center">
               <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu" className="p-2 -mr-2">
@@ -63,8 +63,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 shadow-lg absolute w-full max-w-7xl max-h-[80vh] overflow-y-auto">
             <div className="space-y-4 mb-6 border-b border-slate-100 pb-4">
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Alle Rechner</Link>
-              <a href="/klarwatt/#seo-text" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Solar-Wissen</a>
-              <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Über uns</a>
+              <Link to="/ueber-uns" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium text-lg">Über uns</Link>
             </div>
             <div>
               <div className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Kategorien</div>
@@ -128,8 +127,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-wider">Klarwatt</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/" className="hover:text-white transition-colors">Startseite</Link></li>
-              <li><a href="/klarwatt/#seo-text" className="hover:text-white transition-colors">Solar-Wissen</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Über uns</a></li>
+              <li><Link to="/ueber-uns" className="hover:text-white transition-colors">Über uns</Link></li>
               <li className="pt-4 mt-4 border-t border-slate-800">
                 <Link to="/impressum" className="hover:text-white transition-colors block">Impressum</Link>
               </li>
@@ -159,6 +157,7 @@ export default function App() {
           {/* Static Legal Routes */}
           <Route path="/impressum" element={<LegalPages type="impressum" />} />
           <Route path="/datenschutz" element={<LegalPages type="datenschutz" />} />
+          <Route path="/ueber-uns" element={<AboutPage />} />
 
           {/* Dynamic Calculator Routes — generated from registry/index.ts */}
           {REGISTRY.map(({ config, content }) => (

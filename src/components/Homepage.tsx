@@ -89,42 +89,7 @@ export const Homepage: React.FC = () => {
                 )}
             </main>
 
-            {/* SEO & Text Section */}
-            <section id="seo-text" className="bg-white border-t border-slate-200 py-16">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6">
-                    <div className="prose prose-slate prose-lg max-w-none">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">Warum Klarwatt? Dein Kompass im Solar-Dschungel</h2>
-                        <p className="text-slate-600 mb-4">
-                            Die Energiewende findet nicht nur auf riesigen Freiflächen statt, sondern direkt bei uns zu Hause. Egal ob du ein kleines <strong>Balkonkraftwerk</strong> am Geländer befestigst, das Dach deines <strong>Camper-Vans</strong> ausstattest oder planst, dein gesamtes <strong>Hausdach</strong> mit Photovoltaik einzudecken – die erste Frage ist immer: <em>"Lohnt sich das für mich?"</em>
-                        </p>
-                        <p className="text-slate-600 mb-8">
-                            Genau dafür wurde Klarwatt entwickelt. Wir bieten eine werbefreie, blitzschnelle und exakte Sammlung von Solar-Rechnern für jede erdenkliche Nische in Deutschland.
-                        </p>
 
-                        <h3 className="text-2xl font-semibold text-slate-900 mb-4 mt-8">Wie funktionieren unsere Solar-Rechner?</h3>
-                        <div className="bg-slate-50 rounded-xl p-6 border border-slate-100 mb-8">
-                            <ul className="space-y-4">
-                                <li className="flex items-start">
-                                    <LucideIcons.CheckCircle2 className="h-6 w-6 text-solar-500 mr-3 flex-shrink-0 mt-0.5" />
-                                    <span className="text-slate-600"><strong>Standort-Daten:</strong> Wir nutzen globale Einstrahlungsdaten (z.B. PVGIS), um den spezifischen Ertrag in deiner Postleitzahl zu ermitteln.</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <LucideIcons.CheckCircle2 className="h-6 w-6 text-solar-500 mr-3 flex-shrink-0 mt-0.5" />
-                                    <span className="text-slate-600"><strong>Wirtschaftlichkeit:</strong> Dynamische Strompreise und aktuelle Einspeisevergütungen nach dem EEG fließen direkt in die Amortisations-Modelle ein.</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <LucideIcons.CheckCircle2 className="h-6 w-6 text-solar-500 mr-3 flex-shrink-0 mt-0.5" />
-                                    <span className="text-slate-600"><strong>Komponenten-Logik:</strong> Von der Kabelverlust-Berechnung bis zum Wirkungsgrad des Wechselrichters – unsere "Universal Tools" greifen tief in die Physik ein.</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div className="p-4 border-2 border-dashed border-slate-300 bg-slate-50 rounded-lg text-center text-slate-500 text-sm">
-                            [Hier ist viel Platz für strukturierte H2/H3 Tags, FAQ-Akkordeons und tiefergehende Erklärungen (1.500 Wörter), die von Google indexiert werden, aber das Design der Haupt-Tools oben nicht stören.]
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };
