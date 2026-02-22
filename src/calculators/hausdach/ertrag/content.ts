@@ -1,9 +1,19 @@
 import type { SeoContent } from '../../../types/content';
 
 export const SolaranlageContent: SeoContent = {
-    intro: 'Eine Photovoltaikanlage auf dem Hausdach ist der Klassiker der privaten Energiewende. Mit unserem Ertragsrechner ermitteln Sie für Ihren Standort in Deutschland, wie viel Strom Sie erzeugen können und ab wann sich die Investition durch Eigenverbrauch und Einspeisevergütung rechnet.',
-
-    howItWorks: 'Die Berechnung kombiniert lokale Einstrahlungsdaten von PVGIS mit den aktuellen Vergütungssätzen des Erneuerbare-Energien-Gesetzes (EEG). Wir berücksichtigen dabei, dass Sie einen Teil des Stroms direkt im Haushalt verbrauchen (Strompreis-Ersparnis) und den Rest gegen eine feste Vergütung ins öffentliche Netz einspeisen.',
+    metaTitle: 'Solaranlage Ertragsrechner für Dächer',
+    metaDescription: 'Berechnen Sie den Stromertrag und die Amortisation Ihrer Photovoltaikanlage auf dem Hausdach.',
+    introParagraphs: [
+        'Eine Photovoltaikanlage auf dem Hausdach ist der Klassiker der privaten Energiewende. Mit unserem Ertragsrechner ermitteln Sie für Ihren Standort in Deutschland, wie viel Strom Sie erzeugen können und ab wann sich die Investition durch Eigenverbrauch und Einspeisevergütung rechnet.'
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                'Die Berechnung kombiniert lokale Einstrahlungsdaten von PVGIS mit den aktuellen Vergütungssätzen des Erneuerbare-Energien-Gesetzes (EEG). Wir berücksichtigen dabei, dass Sie einen Teil des Stroms direkt im Haushalt verbrauchen (Strompreis-Ersparnis) und den Rest gegen eine feste Vergütung ins öffentliche Netz einspeisen.'
+            ]
+        }
+    ],
 
     faq: [
         {

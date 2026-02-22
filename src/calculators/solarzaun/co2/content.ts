@@ -1,8 +1,19 @@
 import type { SeoContent } from '../../../types/content';
 
 export const SolarzaunCo2Content: SeoContent = {
-    intro: "Der Solarzaun ist nicht nur eine funktionale Grundstücksgrenze, sondern ein aktiver Beitrag zum Klimaschutz. Durch die vertikale Aufstellung bifazialer Module wird CO₂ eingespart, während gleichzeitig Flächen doppelt genutzt werden.",
-    howItWorks: "Unser CO₂-Rechner vergleicht den erzeugten Solarstrom mit dem aktuellen deutschen Strommix (Umweltbundesamt). Dabei berücksichtigen wir auch den 'ökologischen Rucksack' der Produktion (ca. 600 kg CO₂ pro kWp) und berechnen die energetische Amortisation – also den Zeitpunkt, ab dem Ihr Zaun mehr CO₂ eingespart hat, als für seine Herstellung emittiert wurde.",
+    metaTitle: 'Solarzaun CO2-Rechner',
+    metaDescription: 'Berechnen Sie die ökologische Amortisation und CO2-Ersparnis Ihres Solarzauns.',
+    introParagraphs: [
+        "Der Solarzaun ist nicht nur eine funktionale Grundstücksgrenze, sondern ein aktiver Beitrag zum Klimaschutz. Durch die vertikale Aufstellung bifazialer Module wird CO₂ eingespart, während gleichzeitig Flächen doppelt genutzt werden."
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                "Unser CO₂-Rechner vergleicht den erzeugten Solarstrom mit dem aktuellen deutschen Strommix (Umweltbundesamt). Dabei berücksichtigen wir auch den 'ökologischen Rucksack' der Produktion (ca. 600 kg CO₂ pro kWp) und berechnen die energetische Amortisation – also den Zeitpunkt, ab dem Ihr Zaun mehr CO₂ eingespart hat, als für seine Herstellung emittiert wurde."
+            ]
+        }
+    ],
     faq: [
         {
             question: "Wie viel CO₂ spart ein Solarzaun pro Jahr?",

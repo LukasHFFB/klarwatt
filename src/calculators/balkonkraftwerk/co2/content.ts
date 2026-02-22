@@ -1,10 +1,19 @@
 import type { SeoContent } from '../../../types/content';
 
 export const BalkonkraftwerkCo2Content: SeoContent = {
-    intro: 'Wie viel CO₂ spart ein Balkonkraftwerk wirklich ein? Unser Rechner analysiert die gesamte ökologische Bilanz Ihrer Anlage – von den Emissionen bei der Herstellung (CO₂-Rucksack) bis hin zur jährlichen Vermeidung durch die Substitution des deutschen Strommixes.',
-
-    howItWorks: 'Die Berechnung basiert auf dem aktuellen deutschen Strommix (380g CO₂/kWh laut Umweltbundesamt 2024). Dem gegenüber steht der energetische Rucksack der Produktion (ca. 600kg CO₂ pro kWp), der vor allem durch die energieintensive Silizium-Schmelze entsteht. Wir ermitteln den Zeitpunkt, an dem Ihre Anlage "klimapositiv" wird – also mehr CO₂ eingespart hat, als für ihre Entstehung benötigt wurde.',
-
+    metaTitle: 'Balkonkraftwerk CO2-Rechner',
+    metaDescription: 'Berechnen Sie, wie viel CO2 Ihr Balkonkraftwerk einspart und wann es klimapositiv wird.',
+    introParagraphs: [
+        'Wie viel CO₂ spart ein Balkonkraftwerk wirklich ein? Unser Rechner analysiert die gesamte ökologische Bilanz Ihrer Anlage – von den Emissionen bei der Herstellung (CO₂-Rucksack) bis hin zur jährlichen Vermeidung durch die Substitution des deutschen Strommixes.'
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                'Die Berechnung basiert auf dem aktuellen deutschen Strommix (380g CO₂/kWh laut Umweltbundesamt). Dem gegenüber steht der energetische Rucksack der Produktion (ca. 600kg CO₂ pro kWp), der vor allem durch die energieintensive Silizium-Schmelze entsteht. Wir ermitteln den Zeitpunkt, an dem Ihre Anlage "klimapositiv" wird – also mehr CO₂ eingespart hat, als für ihre Entstehung benötigt wurde.'
+            ]
+        }
+    ],
     faq: [
         {
             question: 'Wann ist ein Balkonkraftwerk ökologisch sinnvoll?',

@@ -1,10 +1,19 @@
 import type { SeoContent } from '../../../types/content';
 
 export const BalkonkraftwerkAmortisationContent: SeoContent = {
-    intro: 'Wann hat sich mein Balkonkraftwerk bezahlt gemacht? Unser Amortisationsrechner liefert Ihnen die Antwort. Er berücksichtigt nicht nur den aktuellen Ertrag, sondern auch zukünftige Strompreissteigerungen und die lange Lebensdauer moderner Solarmodule.',
-
-    howItWorks: 'Die Amortisationsrechnung stellt die einmaligen Anschaffungskosten den jährlichen Stromersparnissen gegenüber. Da wir davon ausgehen, dass der Strompreis historisch bedingt um ca. 3 % pro Jahr steigt, verkürzt sich die Amortisationszeit im Vergleich zu einer statischen Rechnung deutlich. Wir berechnen den Punkt, an dem die kumulierte Ersparnis die Investition übersteigt.',
-
+    metaTitle: 'Balkonkraftwerk Amortisationsrechner',
+    metaDescription: 'Wann hat sich ein Balkonkraftwerk rentiert? Berechnen Sie die Amortisationszeit unter Berücksichtigung von Strompreissteigerungen.',
+    introParagraphs: [
+        'Wann hat sich mein Balkonkraftwerk bezahlt gemacht? Unser Amortisationsrechner liefert Ihnen die Antwort. Er berücksichtigt nicht nur den aktuellen Ertrag, sondern auch zukünftige Strompreissteigerungen und die lange Lebensdauer moderner Solarmodule.'
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                'Die Amortisationsrechnung stellt die einmaligen Anschaffungskosten den jährlichen Stromersparnissen gegenüber. Da wir davon ausgehen, dass der Strompreis historisch bedingt um ca. 3 % pro Jahr steigt, verkürzt sich die Amortisationszeit im Vergleich zu einer statischen Rechnung deutlich. Wir berechnen den Punkt, an dem die kumulierte Ersparnis die Investition übersteigt.'
+            ]
+        }
+    ],
     faq: [
         {
             question: 'Was ist eine realistische Amortisationszeit?',

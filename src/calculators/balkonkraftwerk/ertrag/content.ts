@@ -7,10 +7,24 @@ import type { SeoContent } from '../../../types/content';
  * using the LLM prompt template in src/types/content.ts.
  */
 export const BalkonkraftwerkContent: SeoContent = {
-    intro: 'Ein Balkonkraftwerk (auch Stecker-Solargerät oder Plug-in-PV genannt) ist eine Mini-Photovoltaikanlage, die sich mit einem einfachen Schuko-Stecker ans Hausnetz anschließen lässt. Unser Ertragsrechner ermittelt auf Basis Ihrer PLZ, Modulleistung und Ausrichtung, wie viel Strom Ihre Anlage realistisch produziert – und wie schnell sie sich amortisiert.',
-
-    howItWorks: 'Der Rechner bezieht historische Einstrahlungsdaten (Mittel 2005–2023) direkt von der PVGIS-Datenbank des EU Joint Research Centre für Ihren genauen Standort. Die Rohleistung wird mit dem Performance Ratio (75 %) korrigiert, der Wärme-, Wechselrichter- und Leitungsverluste abbildet. Den Eigenverbrauchsanteil schätzt das Modell auf Basis Ihres Jahresverbrauchs nach der HTW-Berlin-Methodik: Je höher Ihr Verbrauch, desto mehr der erzeugten Kilowattstunden treffen auf laufende Lasten im Haushalt.',
-
+    metaTitle: 'Balkonkraftwerk Ertragsrechner',
+    metaDescription: 'Berechnen Sie den Stromertrag und die Amortisation Ihres Balkonkraftwerks mit PVGIS-Einstrahlungsdaten.',
+    introParagraphs: [
+        'Ein Balkonkraftwerk (auch Stecker-Solargerät oder Plug-in-PV genannt) ist eine Mini-Photovoltaikanlage, die sich mit einem einfachen Schuko-Stecker ans Hausnetz anschließen lässt. Unser Ertragsrechner ermittelt auf Basis Ihrer PLZ, Modulleistung und Ausrichtung, wie viel Strom Ihre Anlage realistisch produziert – und wie schnell sie sich amortisiert.'
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                'Der Rechner bezieht historische Einstrahlungsdaten (Mittel 2005–2023) direkt von der PVGIS-Datenbank des EU Joint Research Centre für Ihren genauen Standort. Die Rohleistung wird mit dem Performance Ratio (75 %) korrigiert, der Wärme-, Wechselrichter- und Leitungsverluste abbildet. Den Eigenverbrauchsanteil schätzt das Modell auf Basis Ihres Jahresverbrauchs nach der HTW-Berlin-Methodik: Je höher Ihr Verbrauch, desto mehr der erzeugten Kilowattstunden treffen auf laufende Lasten im Haushalt.'
+            ],
+            bulletPoints: [
+                'PVGIS-Satellitendaten für höchste Präzision',
+                'HTW-Berlin-Methodik für den Eigenverbrauchsanteil',
+                'Berücksichtigung von Ausrichtung und Neigung'
+            ]
+        }
+    ],
     faq: [
         {
             question: 'Was ist ein Balkonkraftwerk?',

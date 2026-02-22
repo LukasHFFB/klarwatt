@@ -1,8 +1,19 @@
 import type { SeoContent } from '../../../types/content';
 
 export const SolarzaunAmortisationContent: SeoContent = {
-    intro: "Ein Solarzaun ist eine Investition, die sich durch die Einsparung von Stromkosten und die staatliche Einspeisevergütung über die Jahre selbst trägt. Besonders bei der Nutzung bifazialer Module in Ost-West-Ausrichtung werden Stromerträge dann generiert, wenn der Eigenverbrauch im Haushalt oft am höchsten ist.",
-    howItWorks: "Unser Amortisationsrechner analysiert Ihre Investitionskosten (Netto) im Verhältnis zu den jährlichen Erträgen. Dabei wird die jährliche Strompreissteigerung sowie die EEG-Einspeisevergütung für den nicht selbst verbrauchten Strom berücksichtigt. Wir berechnen den genauen Zeitpunkt der Amortisation und den voraussichtlichen Gesamtgewinn über eine Laufzeit von 25 Jahren.",
+    metaTitle: 'Solarzaun Amortisationsrechner',
+    metaDescription: 'Wann macht sich ein Solarzaun bezahlt? Berechnen Sie Refinanzierung und Gewinne über 25 Jahre.',
+    introParagraphs: [
+        "Ein Solarzaun ist eine Investition, die sich durch die Einsparung von Stromkosten und die staatliche Einspeisevergütung über die Jahre selbst trägt. Besonders bei der Nutzung bifazialer Module in Ost-West-Ausrichtung werden Stromerträge dann generiert, wenn der Eigenverbrauch im Haushalt oft am höchsten ist."
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                "Unser Amortisationsrechner analysiert Ihre Investitionskosten (Netto) im Verhältnis zu den jährlichen Erträgen. Dabei wird die jährliche Strompreissteigerung sowie die EEG-Einspeisevergütung für den nicht selbst verbrauchten Strom berücksichtigt. Wir berechnen den genauen Zeitpunkt der Amortisation und den voraussichtlichen Gesamtgewinn über eine Laufzeit von 25 Jahren."
+            ]
+        }
+    ],
     faq: [
         {
             question: "Wann rechnet sich ein Solarzaun?",

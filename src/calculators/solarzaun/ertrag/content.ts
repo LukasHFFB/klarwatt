@@ -1,9 +1,19 @@
 import type { SeoContent } from '../../../types/content';
 
 export const SolarzaunContent: SeoContent = {
-    intro: 'Ein Solarzaun kombiniert Grundstücksbegrenzung mit regenerativer Energieerzeugung. Dank bifazialer (beidseitig aktiver) Module, die vertikal montiert werden, nutzt ein Solarzaun besonders die tiefstehende Wintersonne und liefert in Ost-West-Ausrichtung wertvolle Ertragsspitzen am Morgen und Abend.',
-
-    howItWorks: 'Im Gegensatz zu klassischen PV-Anlagen werden beim Solarzaun die Module senkrecht (90° Neigung) verbaut. Meist kommen bifaziale Glas-Glas-Module zum Einsatz, die Licht von beiden Seiten in Strom umwandeln. Besonders in Ost-West-Ausrichtung fängt der Zaun die Sonnenstrahlen dann ein, wenn der Eigenverbrauch im Haushalt meist am höchsten ist – während flachere Süd-Dachanlagen über Mittag oft mehr Strom produzieren, als direkt verbraucht werden kann.',
+    metaTitle: 'Solarzaun Ertragsrechner',
+    metaDescription: 'Berechnen Sie Ertrag und Wirtschaftlichkeit von vertikalen und bifazialen Solarzäunen.',
+    introParagraphs: [
+        'Ein Solarzaun kombiniert Grundstücksbegrenzung mit regenerativer Energieerzeugung. Dank bifazialer (beidseitig aktiver) Module, die vertikal montiert werden, nutzt ein Solarzaun besonders die tiefstehende Wintersonne und liefert in Ost-West-Ausrichtung wertvolle Ertragsspitzen am Morgen und Abend.'
+    ],
+    sections: [
+        {
+            headline: 'So funktioniert der Rechner',
+            paragraphs: [
+                'Im Gegensatz zu klassischen PV-Anlagen werden beim Solarzaun die Module senkrecht (90° Neigung) verbaut. Meist kommen bifaziale Glas-Glas-Module zum Einsatz, die Licht von beiden Seiten in Strom umwandeln. Besonders in Ost-West-Ausrichtung fängt der Zaun die Sonnenstrahlen dann ein, wenn der Eigenverbrauch im Haushalt meist am höchsten ist – während flachere Süd-Dachanlagen über Mittag oft mehr Strom produzieren, als direkt verbraucht werden kann.'
+            ]
+        }
+    ],
 
     faq: [
         {
