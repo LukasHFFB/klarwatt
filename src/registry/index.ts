@@ -18,7 +18,7 @@ import { BalkonkraftwerkAmortisationContent } from '../calculators/balkonkraftwe
 import { SolaranlageConfig } from '../calculators/hausdach/ertrag/config';
 import { SolaranlageErtragContent } from '../calculators/hausdach/ertrag/content';
 import { SolarzaunConfig } from '../calculators/solarzaun/ertrag/config';
-import { SolarzaunContent } from '../calculators/solarzaun/ertrag/content';
+import { SolarzaunErtragContent } from '../calculators/solarzaun/ertrag/content';
 import { SolarzaunCo2Config } from '../calculators/solarzaun/co2/config';
 import { SolarzaunCo2Content } from '../calculators/solarzaun/co2/content';
 import { SolarzaunAmortisationConfig } from '../calculators/solarzaun/amortisation/config';
@@ -34,7 +34,7 @@ export const REGISTRY: RegistryEntry[] = [
     { config: BalkonkraftwerkCo2Config, content: BalkonkraftwerkCo2Content },
     { config: BalkonkraftwerkAmortisationConfig, content: BalkonkraftwerkAmortisationContent },
     { config: SolaranlageConfig, content: SolaranlageErtragContent },
-    { config: SolarzaunConfig, content: SolarzaunContent },
+    { config: SolarzaunConfig, content: SolarzaunErtragContent },
     { config: SolarzaunCo2Config, content: SolarzaunCo2Content },
     { config: SolarzaunAmortisationConfig, content: SolarzaunAmortisationContent },
 
