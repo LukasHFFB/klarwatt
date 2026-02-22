@@ -1,60 +1,97 @@
 import { describe, it, expect } from 'vitest';
-import { BalkonkraftwerkConfig, getTiltFactor, EINSPEISEVERGÜTUNG } from './config';
+import { BalkonkraftwerkConfig, getTiltFactor, getSimultaneousFactor } from './config';
 
-describe('Balkonkraftwerk Calculation Logic', () => {
-    const calc = BalkonkraftwerkConfig.calculate;
+const calc = BalkonkraftwerkConfig.calculate;
 
-    it('calculates tilt factor correctly (parabola peaking at 32)', () => {
+describe('getTiltFactor', () => {
+    it('peaks at 32°', () => {
         expect(getTiltFactor(32)).toBeCloseTo(1.00, 2);
-        expect(getTiltFactor(0)).toBeCloseTo(0.70, 2); // clamped minimum
-        expect(getTiltFactor(90)).toBeCloseTo(0.70, 2); // clamped minimum
+    });
+    it('clamps to 0.70 at 0° (flat)', () => {
+        expect(getTiltFactor(0)).toBeCloseTo(0.70, 2);
+    });
+    it('clamps to 0.70 at 90° (vertical)', () => {
+        expect(getTiltFactor(90)).toBeCloseTo(0.70, 2);
+    });
+    it('returns ~0.95 at 45°', () => {
         expect(getTiltFactor(45)).toBeCloseTo(0.95, 2);
     });
+});
 
-    it('calculates jahresertrag purely (Südausrichtung, 30 Grad)', () => {
-        // 0.8 kWp * 1000 kWh/m2 * 0.75 PR * 1.0 (Süd) * ~1.0 (30°)
-        const res = calc({ kwp: 0.8, azimuth: 180, tilt: 30 }, 1000);
+describe('getSimultaneousFactor', () => {
+    it('clamps at 0.55 for very low consumption (0 kWh)', () => {
+        expect(getSimultaneousFactor(0)).toBeCloseTo(0.55, 2);
+    });
+    it('returns ~0.73 for 3500 kWh (typical household)', () => {
+        // 0.50 + 3500/15000 = 0.50 + 0.233 = 0.733
+        expect(getSimultaneousFactor(3500)).toBeCloseTo(0.733, 2);
+    });
+    it('clamps at 0.80 for very high consumption (100000 kWh)', () => {
+        expect(getSimultaneousFactor(100_000)).toBeCloseTo(0.80, 2);
+    });
+});
 
-        // 0.8 * 1000 * 0.75 * 1.0 * getTiltFactor(30)
-        const expectedYield = 0.8 * 1000 * 0.75 * 1.0 * getTiltFactor(30);
-        expect(res.jahresertrag).toBeCloseTo(expectedYield, 0);
+describe('Balkonkraftwerk calculation', () => {
+    // Force a known jahresertrag: 0.8 kWp × 1000 irr × 0.75 PR × 1.0 (Süd) × tiltFactor(32) = 600 kWh
+    const BASE = { kwp: 0.8, azimuth: 180, tilt: 32, jahresverbrauch: 3500, strompreis: 0.30, purchase_price: 600 };
+
+    it('calculates jahresertrag correctly', () => {
+        const res = calc(BASE, 1000);
+        // 0.8 × 1000 × 0.75 × 1.0 × 1.0 = 600
+        expect(res.jahresertrag).toBeCloseTo(600, 0);
     });
 
-    it('calculates ersparnis and amortisation accurately', () => {
-        // 1000 kWh Ertrag, 50% Eigenverbrauch (500 kWh), 0.30€ Strompreis, 600€ Anlage
-        // Ersparnis = (500 * 0.30) + (500 * 0.0795) = 150 + 39.75 = 189.75 €
-        // Amortisation = 600 / 189.75 = 3.16 Jahre
-
-        // We force a scenario where Jahresertrag is exactly 1000 by passing specific values
-        // Using 1.0 kWp, PR=1.0 (mocked via irradiance compensation), Azimuth=Süd, Tilt=32 (Factor 1.0)
-        // To get exactly 1000 with PR 0.75 hardcoded inside, we need Irradiance = 1000 / 0.75 = 1333.333
-
-        const mockIrradiance = 1000 / 0.75;
-
-        const res = calc({
-            kwp: 1.0,
-            azimuth: 180,
-            tilt: 32,
-            strompreis: 0.30,
-            eigenverbrauch: 50,
-            purchase_price: 600
-        }, mockIrradiance);
-
-        expect(res.jahresertrag).toBeCloseTo(1000, 1);
-        expect(res.eigenverbrauch_kwh).toBeCloseTo(500, 1);
-        expect(res.einspeisung_kwh).toBeCloseTo(500, 1);
-
-        const expectedErsparnis = (500 * 0.30) + (500 * EINSPEISEVERGÜTUNG.below10kwp_partial);
-        expect(res.ersparnis).toBeCloseTo(expectedErsparnis, 2);
-
-        expect(res.amortisation).toBeCloseTo(600 / expectedErsparnis, 2);
+    it('savings are 0 when strompreis is 0', () => {
+        const res = calc({ ...BASE, strompreis: 0 }, 1000);
+        expect(res.ersparnis).toBe(0);
     });
 
-    it('calculates CO2 correctly', () => {
-        const mockIrradiance = 1000 / 0.75; // Forces 1000 kWh yield
-        const res = calc({ kwp: 1.0, azimuth: 180, tilt: 32 }, mockIrradiance);
+    it('amortisation is Infinity when strompreis is 0', () => {
+        const res = calc({ ...BASE, strompreis: 0 }, 1000);
+        expect(res.amortisation).toBe(Infinity);
+    });
 
-        // 1000 kWh * 0.380 kg/kWh = 380 kg
-        expect(res.co2).toBeCloseTo(380, 0);
+    it('savings are 0 when kwp is 0', () => {
+        const res = calc({ ...BASE, kwp: 0 }, 1000);
+        expect(res.ersparnis).toBe(0);
+        expect(res.jahresertrag).toBe(0);
+    });
+
+    it('eigenverbrauch cannot exceed jahresverbrauch', () => {
+        // Very low consumption: only 100 kWh/year — shouldn't self-consume more than that
+        const res = calc({ ...BASE, jahresverbrauch: 100 }, 1000);
+        expect(res.eigenverbrauch_kwh).toBeLessThanOrEqual(100);
+    });
+
+    it('eigenverbrauch_kwh + einspeisung_kwh == jahresertrag', () => {
+        const res = calc(BASE, 1000);
+        expect(res.eigenverbrauch_kwh + res.einspeisung_kwh).toBeCloseTo(res.jahresertrag, 6);
+    });
+
+    it('eigenverbrauchsquote is 0 when jahresertrag is 0', () => {
+        const res = calc({ ...BASE, kwp: 0 }, 1000);
+        expect(res.eigenverbrauchsquote).toBe(0);
+    });
+
+    it('calculates co2 correctly from jahresertrag', () => {
+        const res = calc(BASE, 1000);
+        // 600 kWh × 0.380 = 228 kg
+        expect(res.co2).toBeCloseTo(600 * 0.380, 1);
+    });
+
+    it('calculates accurate ersparnis', () => {
+        const res = calc(BASE, 1000);
+        // jahresertrag = 600, sfactor = 0.50 + 3500/15000 = 0.733
+        // eigenverbrauch = min(600 * 0.733, 3500) = min(440, 3500) = 440
+        // ersparnis = 440 * 0.30 = 132
+        const sfactor = getSimultaneousFactor(BASE.jahresverbrauch);
+        const expected = Math.min(600 * sfactor, BASE.jahresverbrauch) * BASE.strompreis;
+        expect(res.ersparnis).toBeCloseTo(expected, 2);
+    });
+
+    it('south-facing gives higher yield than north-facing', () => {
+        const south = calc({ ...BASE, azimuth: 180 }, 1000);
+        const north = calc({ ...BASE, azimuth: 0 }, 1000);
+        expect(south.jahresertrag).toBeGreaterThan(north.jahresertrag);
     });
 });

@@ -1,3 +1,4 @@
+
 export interface InputField {
   id: string;
   label: string; // German
@@ -28,11 +29,18 @@ export interface Assumption {
 export interface CalculatorConfig {
   slug: string;
   category: string;
+  breadcrumbLabel: string;
   title: string;
   description: string;
   inputs: InputField[];
   outputs: OutputField[];
   assumptions: Assumption[];
+  /** Set true to display the monthly PVGIS irradiance chart on this calculator. */
+  showIrradianceChart?: boolean;
+  /** Fixed tilt for the chart (overrides input if defined) */
+  chartTilt?: number;
+  /** Fixed azimuth for the chart (overrides input if defined) */
+  chartAzimuth?: number;
   calculate: (
     inputs: Record<string, number | string>,
     irradiance?: number // kWh/m²/year from PVGIS, injected by shell

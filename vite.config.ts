@@ -8,4 +8,16 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      // Proxy PVGIS requests to avoid CORS issues in local development.
+      // In production (real domain), PVGIS allows CORS directly.
+      '/api/pvgis': {
+        target: 'https://re.jrc.ec.europa.eu/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/pvgis/, ''),
+        secure: true,
+      }
+    }
+  }
 })

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { OutputField } from '../../types/calculator';
+import { Zap, Euro, Clock, Leaf, TrendingUp } from 'lucide-react';
 
 interface ResultCardProps {
     fields: OutputField[];
@@ -12,6 +13,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({ fields, results }) => {
 
     const formatValue = (val: number | undefined, format: string) => {
         if (val === undefined || isNaN(val)) return '-';
+        if (!isFinite(val)) return '–'; // e.g. Infinity when strompreis = 0
 
         switch (format) {
             case 'currency':
@@ -26,46 +28,63 @@ export const ResultCard: React.FC<ResultCardProps> = ({ fields, results }) => {
         }
     };
 
+    const getIcon = (id: string) => {
+        switch (id) {
+            case 'jahresertrag': return <Zap className="w-5 h-5" />;
+            case 'ersparnis': return <Euro className="w-5 h-5" />;
+            case 'amortisation': return <Clock className="w-5 h-5" />;
+            case 'co2': return <Leaf className="w-5 h-5" />;
+            default: return <TrendingUp className="w-5 h-5" />;
+        }
+    };
+
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {/* Hero Highlight Cards */}
-            {highlightedFields.length > 0 && (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+        <div className="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-800">
+            {/* Hero Highlights Dashboard */}
+            <div className="p-8 md:p-10 border-b border-slate-800 bg-gradient-to-br from-slate-900 to-slate-800">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {highlightedFields.map(field => (
-                        <div key={field.id} className="card card-amber" style={{ textAlign: 'center', padding: '2rem 1.5rem' }}>
-                            <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-solar-600)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                        <div key={field.id} className="space-y-3 group">
+                            <div className="flex items-center text-solar-500 font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                                <span className="mr-2 p-1.5 bg-solar-500/10 rounded-lg group-hover:bg-solar-500/20 transition-colors">
+                                    {getIcon(field.id)}
+                                </span>
                                 {field.label}
                             </div>
-                            <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--color-slate-900)', lineHeight: 1 }}>
+                            <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white tabular-nums flex items-baseline tracking-tight">
                                 {formatValue(results[field.id], field.format)}
+                                {field.unit && field.format === 'number' && (
+                                    <span className="ml-2 text-lg md:text-xl font-bold text-slate-500 uppercase tracking-wide">{field.unit}</span>
+                                )}
                             </div>
-                            {field.unit && field.format === 'number' && (
-                                <div style={{ fontSize: '1rem', color: 'var(--color-slate-600)', marginTop: '0.25rem' }}>{field.unit}</div>
-                            )}
                         </div>
                     ))}
                 </div>
-            )}
+            </div>
 
-            {/* Secondary Results */}
-            {standardFields.length > 0 && (
-                <div className="card" style={{ padding: '0' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                        <tbody>
-                            {standardFields.map((field, idx) => (
-                                <tr key={field.id} style={{ borderBottom: idx !== standardFields.length - 1 ? '1px solid var(--color-slate-200)' : 'none' }}>
-                                    <td style={{ padding: '1rem 1.5rem', fontWeight: 500, color: 'var(--color-slate-600)' }}>
-                                        {field.label}
-                                    </td>
-                                    <td style={{ padding: '1rem 1.5rem', textAlign: 'right', fontWeight: 700, color: 'var(--color-slate-900)' }}>
-                                        {formatValue(results[field.id], field.format)} {field.format === 'number' ? field.unit : ''}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+            {/* Secondary Results Grid */}
+            <div className="p-8 bg-slate-900/40">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {standardFields.map(field => (
+                        <div key={field.id} className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-solar-500/40 hover:bg-white/10 transition-all group">
+                            <div className="flex justify-between items-start mb-3">
+                                <div className="text-slate-400 text-xs font-bold uppercase tracking-wider group-hover:text-slate-200 transition-colors">
+                                    {field.label}
+                                </div>
+                                <div className="text-solar-500/40 group-hover:text-solar-500 transition-colors">
+                                    {getIcon(field.id)}
+                                </div>
+                            </div>
+                            <div className="text-xl md:text-2xl font-black text-white tabular-nums leading-none">
+                                {formatValue(results[field.id], field.format)}
+                                <span className="ml-1 text-sm font-medium text-slate-500">
+                                    {field.format === 'number' ? field.unit : ''}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

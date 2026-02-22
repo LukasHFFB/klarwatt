@@ -4,7 +4,7 @@ import { Homepage } from './components/Homepage';
 import { CategoryIndex } from './components/CategoryIndex';
 import { LegalPages } from './components/LegalPages';
 import { CalculatorShell } from './components/calculator/CalculatorShell';
-import { BalkonkraftwerkConfig } from './calculators/balkonkraftwerk/ertrag/config';
+import { REGISTRY } from './registry';
 import { Sun, Menu } from 'lucide-react';
 
 // Scroll to top on route change
@@ -87,14 +87,17 @@ export default function App() {
           <Route path="/impressum" element={<LegalPages type="impressum" />} />
           <Route path="/datenschutz" element={<LegalPages type="datenschutz" />} />
 
-          {/* Dynamic Category Routes */}
-          <Route path="/:categorySlug" element={<CategoryIndex />} />
+          {/* Dynamic Calculator Routes — generated from registry/index.ts */}
+          {REGISTRY.map(({ config, content }) => (
+            <Route
+              key={`${config.category}/${config.slug}`}
+              path={`/${config.category}/${config.slug}`}
+              element={<CalculatorShell config={config} content={content} />}
+            />
+          ))}
 
-          {/* Working V1 Calculator Route */}
-          <Route
-            path="/balkonkraftwerk/ertrag"
-            element={<CalculatorShell config={BalkonkraftwerkConfig} />}
-          />
+          {/* Dynamic Category Index Route */}
+          <Route path="/:categorySlug" element={<CategoryIndex />} />
         </Routes>
       </Layout>
     </Router>
