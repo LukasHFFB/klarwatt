@@ -10,13 +10,13 @@
 import type { CalculatorConfig } from '../types/calculator';
 import type { SeoContent } from '../types/content';
 import { BalkonkraftwerkConfig } from '../calculators/balkonkraftwerk/ertrag/config';
-import { BalkonkraftwerkContent } from '../calculators/balkonkraftwerk/ertrag/content';
+import { BalkonkraftwerkErtragContent } from '../calculators/balkonkraftwerk/ertrag/content';
 import { BalkonkraftwerkCo2Config } from '../calculators/balkonkraftwerk/co2/config';
 import { BalkonkraftwerkCo2Content } from '../calculators/balkonkraftwerk/co2/content';
 import { BalkonkraftwerkAmortisationConfig } from '../calculators/balkonkraftwerk/amortisation/config';
 import { BalkonkraftwerkAmortisationContent } from '../calculators/balkonkraftwerk/amortisation/content';
 import { SolaranlageConfig } from '../calculators/hausdach/ertrag/config';
-import { SolaranlageContent } from '../calculators/hausdach/ertrag/content';
+import { SolaranlageErtragContent } from '../calculators/hausdach/ertrag/content';
 import { SolarzaunConfig } from '../calculators/solarzaun/ertrag/config';
 import { SolarzaunContent } from '../calculators/solarzaun/ertrag/content';
 import { SolarzaunCo2Config } from '../calculators/solarzaun/co2/config';
@@ -30,10 +30,10 @@ export interface RegistryEntry {
 }
 
 export const REGISTRY: RegistryEntry[] = [
-    { config: BalkonkraftwerkConfig, content: BalkonkraftwerkContent },
+    { config: BalkonkraftwerkConfig, content: BalkonkraftwerkErtragContent },
     { config: BalkonkraftwerkCo2Config, content: BalkonkraftwerkCo2Content },
     { config: BalkonkraftwerkAmortisationConfig, content: BalkonkraftwerkAmortisationContent },
-    { config: SolaranlageConfig, content: SolaranlageContent },
+    { config: SolaranlageConfig, content: SolaranlageErtragContent },
     { config: SolarzaunConfig, content: SolarzaunContent },
     { config: SolarzaunCo2Config, content: SolarzaunCo2Content },
     { config: SolarzaunAmortisationConfig, content: SolarzaunAmortisationContent },
