@@ -16,7 +16,7 @@ export const PLZ_INPUT: InputField = {
     id: 'plz',
     label: 'Postleitzahl',
     type: 'plz',
-    default: '80331',
+    default: '',
     unit: 'PLZ',
     tooltip: 'Ihre Standort-PLZ – wird zur Ermittlung der lokalen Sonneneinstrahlung via PVGIS verwendet.',
 };

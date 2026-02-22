@@ -17,63 +17,78 @@ const ScrollToTop = () => {
 };
 
 // Main Navigation Wrapper matching prototype
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="flex flex-col min-h-screen">
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex-shrink-0 flex items-center">
-            <Sun className="h-8 w-8 text-solar-500 mr-2" />
-            <span className="font-bold text-2xl tracking-tight text-slate-900">Klar<span className="text-solar-500">watt</span></span>
-          </Link>
-          <nav className="hidden md:flex space-x-8">
-            <Link to="/" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Alle Rechner</Link>
-            <a href="/#seo-text" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Solar-Wissen</a>
-            <a href="#" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Über uns</a>
-          </nav>
-          <div className="md:hidden flex items-center">
-            <Menu className="h-6 w-6 text-slate-500" />
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link to="/" className="flex-shrink-0 flex items-center">
+              <Sun className="h-8 w-8 text-solar-500 mr-2" />
+              <span className="font-bold text-2xl tracking-tight text-slate-900">Klar<span className="text-solar-500">watt</span></span>
+            </Link>
+            <nav className="hidden md:flex space-x-8">
+              <Link to="/" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Alle Rechner</Link>
+              <a href="/klarwatt/#seo-text" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Solar-Wissen</a>
+              <a href="#" className="text-slate-500 hover:text-solar-600 font-medium transition-colors">Über uns</a>
+            </nav>
+            <div className="md:hidden flex items-center">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu" className="p-2 -mr-2">
+                <Menu className="h-6 w-6 text-slate-500" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
 
-    <main className="flex-grow">
-      {children}
-    </main>
-
-    <footer className="bg-slate-900 text-slate-400 py-12 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <div className="flex items-center mb-4">
-            <Sun className="h-6 w-6 text-solar-500 mr-2" />
-            <span className="font-bold text-xl text-white">Klar<span className="text-solar-500">watt</span></span>
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-4 shadow-lg absolute w-full max-w-7xl">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium">Alle Rechner</Link>
+            <a href="/klarwatt/#seo-text" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium">Solar-Wissen</a>
+            <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="block text-slate-700 font-medium">Über uns</a>
           </div>
-          <p className="text-sm">Unabhängige Solar-Rechner für Deutschland. Berechne Ertrag, Rendite und Autarkie für dein Projekt.</p>
+        )}
+      </header>
+
+      <main className="flex-grow">
+        {children}
+      </main>
+
+      <footer className="bg-slate-900 text-slate-400 py-12 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div className="flex items-center mb-4">
+              <Sun className="h-6 w-6 text-solar-500 mr-2" />
+              <span className="font-bold text-xl text-white">Klar<span className="text-solar-500">watt</span></span>
+            </div>
+            <p className="text-sm">Unabhängige Solar-Rechner für Deutschland. Berechne Ertrag, Rendite und Autarkie für dein Projekt.</p>
+          </div>
+          <div>
+            <h4 className="text-white font-semibold mb-4">Beliebte Rechner</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/balkonkraftwerk/ertrag" className="hover:text-solar-500 transition-colors">Balkonkraftwerk Ertrag</Link></li>
+              <li><a href="#" className="hover:text-solar-500 transition-colors">PV-Anlagen Rendite</a></li>
+              <li><a href="#" className="hover:text-solar-500 transition-colors">Speicher Dimensionierung</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-semibold mb-4">Rechtliches</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/impressum" className="hover:text-white transition-colors">Impressum</Link></li>
+              <li><Link to="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link></li>
+              <li><a href="#" className="hover:text-white transition-colors">Kontakt</a></li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h4 className="text-white font-semibold mb-4">Beliebte Rechner</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/balkonkraftwerk/ertrag" className="hover:text-solar-500 transition-colors">Balkonkraftwerk Ertrag</Link></li>
-            <li><a href="#" className="hover:text-solar-500 transition-colors">PV-Anlagen Rendite</a></li>
-            <li><a href="#" className="hover:text-solar-500 transition-colors">Speicher Dimensionierung</a></li>
-          </ul>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center">
+          &copy; 2026 Klarwatt.de. Alle Rechte vorbehalten.
         </div>
-        <div>
-          <h4 className="text-white font-semibold mb-4">Rechtliches</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/impressum" className="hover:text-white transition-colors">Impressum</Link></li>
-            <li><Link to="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link></li>
-            <li><a href="#" className="hover:text-white transition-colors">Kontakt</a></li>
-          </ul>
-        </div>
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-center">
-        &copy; 2026 Klarwatt.de. Alle Rechte vorbehalten.
-      </div>
-    </footer>
-  </div>
-);
+      </footer>
+    </div>
+  );
+};
 
 export default function App() {
   return (
