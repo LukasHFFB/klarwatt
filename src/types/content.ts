@@ -37,9 +37,12 @@
  * }
  *
  * CRITICAL INSTRUCTIONS:
- * 1. Output ONLY the raw TypeScript code exporting the object `export const [Topic]Content: SeoContent = { ... }`.
- * 2. Do not include markdown codeblocks around the output.
- * 3. Ensure the text is expansive, detailed, and directly relates to the calculator's purpose.
+ * 1. Output ONLY the raw TypeScript code.
+ * 2. You MUST include this exact import statement at the very top of your output:
+ *    import type { SeoContent } from '../../../types/content';
+ * 3. Then, export the object like this: `export const [Topic]Content: SeoContent = { ... }`.
+ * 4. Do not include markdown codeblocks (```typescript) around the output.
+ * 5. Ensure the text is expansive, detailed, and directly relates to the calculator's purpose.
  * 
  * Here is the calculator configuration this text is for:
  * [PASTE CALCULATOR CONFIG HERE]
