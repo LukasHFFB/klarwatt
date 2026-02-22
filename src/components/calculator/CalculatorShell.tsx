@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CATEGORIES } from '../../data/categories';
 import type { CalculatorConfig } from '../../types/calculator';
 import type { SeoContent } from '../../types/content';
@@ -18,13 +18,12 @@ interface CalculatorShellProps {
 }
 
 export const CalculatorShell: React.FC<CalculatorShellProps> = ({ config, content }) => {
-    const [searchParams, setSearchParams] = useSearchParams();
-
     // Initialize state from URL params or defaults
     const [inputs, setInputs] = useState<Record<string, number | string>>(() => {
+        const params = new URLSearchParams(window.location.search);
         const initial: Record<string, number | string> = {};
         config.inputs.forEach(input => {
-            const urlVal = searchParams.get(input.id);
+            const urlVal = params.get(input.id);
             if (urlVal !== null) {
                 if (input.type === 'number' || input.type === 'slider') {
                     initial[input.id] = Number(urlVal);
@@ -119,8 +118,9 @@ export const CalculatorShell: React.FC<CalculatorShellProps> = ({ config, conten
             const def = config.inputs.find(i => i.id === k)?.default;
             if (v !== def) params.set(k, String(v));
         });
-        setSearchParams(params, { replace: true });
-    }, [inputs, config.inputs, setSearchParams]);
+        const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
+        window.history.replaceState({}, '', newUrl);
+    }, [inputs, config.inputs]);
 
     const handleShare = () => {
         navigator.clipboard.writeText(window.location.href);
