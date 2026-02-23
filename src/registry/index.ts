@@ -23,6 +23,12 @@ import { SolarzaunCo2Config } from '../calculators/solarzaun/co2/config';
 import { SolarzaunCo2Content } from '../calculators/solarzaun/co2/content';
 import { SolarzaunAmortisationConfig } from '../calculators/solarzaun/amortisation/config';
 import { SolarzaunAmortisationContent } from '../calculators/solarzaun/amortisation/content';
+import { CarportErtragConfig } from '../calculators/carport/ertrag/config';
+import { CarportErtragContent } from '../calculators/carport/ertrag/content';
+import { CarportCo2Config } from '../calculators/carport/co2/config';
+import { CarportCo2Content } from '../calculators/carport/co2/content';
+import { CarportAmortisationConfig } from '../calculators/carport/amortisation/config';
+import { CarportAmortisationContent } from '../calculators/carport/amortisation/content';
 
 export interface RegistryEntry {
     config: CalculatorConfig;
@@ -37,6 +43,9 @@ export const REGISTRY: RegistryEntry[] = [
     { config: SolarzaunConfig, content: SolarzaunErtragContent },
     { config: SolarzaunCo2Config, content: SolarzaunCo2Content },
     { config: SolarzaunAmortisationConfig, content: SolarzaunAmortisationContent },
+    { config: CarportErtragConfig, content: CarportErtragContent },
+    { config: CarportCo2Config, content: CarportCo2Content },
+    { config: CarportAmortisationConfig, content: CarportAmortisationContent },
 
     // --- Add new calculators here, one line each ---
     // { config: PvAnlageRenditeConfig, content: PvAnlageRenditeContent },
