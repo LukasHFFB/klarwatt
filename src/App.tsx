@@ -4,6 +4,7 @@ import { Homepage } from './components/Homepage';
 import { CategoryIndex } from './components/CategoryIndex';
 import { LegalPages } from './components/LegalPages';
 import { AboutPage } from './components/AboutPage';
+import { SitemapPage } from './components/SitemapPage';
 import { CalculatorShell } from './components/calculator/CalculatorShell';
 import { REGISTRY } from './registry';
 import { CATEGORIES } from './data/categories';
@@ -134,6 +135,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <li>
                 <Link to="/datenschutz" className="hover:text-white transition-colors block">Datenschutz</Link>
               </li>
+              <li>
+                <Link to="/sitemap" className="hover:text-white transition-colors block">Sitemap</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -158,6 +162,7 @@ export default function App() {
           <Route path="/impressum" element={<LegalPages type="impressum" />} />
           <Route path="/datenschutz" element={<LegalPages type="datenschutz" />} />
           <Route path="/ueber-uns" element={<AboutPage />} />
+          <Route path="/sitemap" element={<SitemapPage />} />
 
           {/* Dynamic Calculator Routes — generated from registry/index.ts */}
           {REGISTRY.map(({ config, content }) => (
